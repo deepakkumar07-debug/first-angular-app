@@ -10,9 +10,9 @@ export class AppComponent {
     console.log('App Component Constructor Called.');
   }
 
-  isHide: boolean = true;
-
-  toggleHeaderComponent() {
-    this.isHide = !this.isHide;
-  }
+  products = [
+    { name: 'Laptop', price: 999 },
+    { name: 'Smartphone', price: 499 },
+    { name: 'Tablet', price: 299 },
+  ];
 }
