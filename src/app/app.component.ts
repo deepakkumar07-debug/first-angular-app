@@ -10,11 +10,9 @@ export class AppComponent {
     console.log('App Component Constructor Called.');
   }
 
-  username = 'Deepak';
-  imageUrl: string =
-    'https://angular.io/assets/images/logos/angular/angular.png';
+  isHide: boolean = true;
 
-  greet() {
-    alert('Hello, Angular!');
+  toggleHeaderComponent() {
+    this.isHide = !this.isHide;
   }
 }

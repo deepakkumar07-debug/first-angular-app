@@ -9,4 +9,11 @@ export class HeaderComponent {
   constructor() {
     console.log('Header Component Constructor Called.');
   }
+
+  ngOnInit(): void {
+    console.log('ngOnInit() is called');
+  }
+  ngOnDestroy() {
+    console.log('Component is being destroyed');
+  }
 }

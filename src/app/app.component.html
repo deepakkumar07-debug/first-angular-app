@@ -1,40 +1,5 @@
-<!-- Using Component -->
-<h2>Using a Component</h2>
-<p>Below text is displayed from <i>header.component.html</i></p>
-<app-header></app-header>
-<hr />
-
-<!-- String Interpolation -->
-<h2>String Interpolation Example</h2>
-<p>
-  Below <i><b>username</b></i> is rendered using the value from
-  <i>app.component.ts</i>
-  file
-</p>
-<h4>Username: {{ username }}</h4>
-<hr />
-
-<!-- Property Binding -->
-<h2>Property Binding Example</h2>
-<p>
-  Below image is rendered using the value of property named
-  <i><b>imageUrl</b></i> from <i>app.component.ts</i>
-</p>
-<img [src]="imageUrl" alt="Angular Logo" />
-<hr />
-
-<!-- Event Binding -->
-<h2>Event Binding Example</h2>
-<p>
-  An event can be any kind of interaction that user is doing the ui like
-  clicking a button, typing a text, moving a mouse...
-</p>
-<p>Click the below button to call the greet() in <i>app.component.ts</i></p>
-<button (click)="greet()">Click Me</button>
-<hr />
-
-<!-- Two way data binding -->
-<h2>Two Way Data Binding Example</h2>
-<input [(ngModel)]="username" placeholder="Enter your name" />
-<p>Hello, {{ username }}!</p>
-<hr />
+<!-- Using Header Component -->
+<ng-container *ngIf="isHide">
+  <app-header></app-header>
+</ng-container>
+<button (click)="toggleHeaderComponent()">Click to Hide/Unhide</button>
