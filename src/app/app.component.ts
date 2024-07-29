@@ -43,4 +43,32 @@ export class AppComponent {
       completed: false,
     };
   }
+
+  updatedItem = {
+    id: 1, // The ID of the item to update
+    title: 'Updated Title',
+    dueDate: new Date().toISOString(),
+    completed: true,
+  };
+
+  updateItem() {
+    this.activityService.updateData(this.updatedItem).subscribe((response) => {
+      let index = this.data.findIndex(
+        (activity) => activity.id == this.updatedItem.id
+      );
+      // update the response
+      this.data.splice(index, 1, response);
+    });
+  }
+
+  handleUpdate(data: any) {
+    this.updatedItem.id = data.id;
+    this.updateItem();
+  }
+
+  deleteItem(id: number) {
+    this.activityService.deleteData(id).subscribe((response) => {
+      this.data = this.data.filter((item) => item.id !== id);
+    });
+  }
 }

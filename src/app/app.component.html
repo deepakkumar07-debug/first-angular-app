@@ -36,7 +36,7 @@
         <option value="false">No</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Add Activity</button>
+    <button type="submit" class="btn btn-success">Add Activity</button>
   </form>
 </div>
 
@@ -55,6 +55,14 @@
           <i class="bi bi-x-circle-fill text-danger"></i>
         </ng-template>
       </p>
+      <div>
+        <button class="btn btn-success" (click)="handleUpdate(activity)">
+          Update
+        </button>
+        <button class="btn btn-danger mx-3" (click)="deleteItem(activity.id)">
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </div>

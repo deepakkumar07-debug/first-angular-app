@@ -16,4 +16,10 @@ export class ActivitiesService {
   addData(newItem: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, newItem);
   }
+  updateData(updatedItem: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${updatedItem.id}`, updatedItem);
+  }
+  deleteData(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }
