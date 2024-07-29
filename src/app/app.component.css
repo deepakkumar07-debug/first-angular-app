@@ -11,3 +11,20 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
+  
+  .tabs {
+    margin-right: 2rem;
+  }
+  .tab-content {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    width: 300px;
+  }
+
+  .active{
+    background-color: deepskyblue;
+    color: white;
+    font-weight: bolder;
+    border-color: deepskyblue;
+    padding: 5px;
+  }

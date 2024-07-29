@@ -1,7 +1,69 @@
 <div class="product-list">
-  <div class="product-item" *ngFor="let product of products; let i = index">
-    <h2>Product {{ i + 1 }}</h2>
-    <p>Name: {{ product.name }}</p>
-    <p>Price: ${{ product.price }}</p>
+  <ng-container *ngIf="products.length > 0; else noProducts">
+    <div class="product-item" *ngFor="let product of products; let i = index">
+      <h2>Product {{ i + 1 }}</h2>
+      <p>Name: {{ product.name }}</p>
+      <p>Price: ${{ product.price }}</p>
+    </div>
+  </ng-container>
+
+  <!-- #tempplateVariable -->
+  <ng-template #noProducts>
+    <p>No Products Found</p>
+  </ng-template>
+</div>
+
+<!-- Buttons to change the view mode -->
+<ng-container>
+  <button
+    class="tabs"
+    (click)="viewMode = 'home'"
+    [ngClass]="{ active: viewMode == 'home' }"
+  >
+    Home
+  </button>
+  <button
+    class="tabs"
+    (click)="viewMode = 'breakfast'"
+    [ngClass]="{ active: viewMode == 'breakfast' }"
+  >
+    BreakFast Menu
+  </button>
+
+  <!-- Content rendering based on the selected view mode -->
+  <div [ngSwitch]="viewMode" class="tab-content">
+    <!-- Content rendering based on the selected view mode -->
+    <div *ngSwitchCase="'home'">Home Content</div>
+
+    <!-- Displayed when viewMode is 'breakfast' -->
+    <div *ngSwitchCase="'breakfast'">BreakFast Menu Content</div>
+
+    <!-- Displayed when viewMode doesn't match any case -->
+    <div *ngSwitchDefault>something went wrong</div>
   </div>
+</ng-container>
+
+<div class="container">
+  <span>Like/dislike </span>
+  <button
+    type="button"
+    class="btn btn-dark"
+    (click)="toggleLike()"
+    [ngStyle]="{ 'background-color': isLike ? 'white' : 'black' }"
+  >
+    <i class="bi bi-heart text-danger"></i>
+  </button>
+</div>
+
+<div class="container">
+  <h2 class="mx-3">Counter: {{ count }}</h2>
+  <button (click)="increment()" class="btn btn-success mx-3">Increment</button>
+  <button
+    (click)="decrement()"
+    class="btn"
+    [disabled]="count == 0"
+    [ngClass]="{ 'btn-secondary': count == 0, 'btn-danger': count > 0 }"
+  >
+    Decrement
+  </button>
 </div>
