@@ -1,69 +1,17 @@
-<div class="product-list">
-  <ng-container *ngIf="products.length > 0; else noProducts">
-    <div class="product-item" *ngFor="let product of products; let i = index">
-      <h2>Product {{ i + 1 }}</h2>
-      <p>Name: {{ product.name }}</p>
-      <p>Price: ${{ product.price }}</p>
-    </div>
-  </ng-container>
-
-  <!-- #tempplateVariable -->
-  <ng-template #noProducts>
-    <p>No Products Found</p>
-  </ng-template>
-</div>
-
-<!-- Buttons to change the view mode -->
-<ng-container>
-  <button
-    class="tabs"
-    (click)="viewMode = 'home'"
-    [ngClass]="{ active: viewMode == 'home' }"
-  >
-    Home
+<div class="container my-3">
+  <input
+    class="form-control"
+    style="width: 500px"
+    [(ngModel)]="newItem"
+    placeholder="Enter item"
+  />
+  <button class="btn btn-success my-3 mx-1" (click)="addItem()">
+    Add Item
   </button>
-  <button
-    class="tabs"
-    (click)="viewMode = 'breakfast'"
-    [ngClass]="{ active: viewMode == 'breakfast' }"
-  >
-    BreakFast Menu
+  <button class="btn btn-danger my-3 mx-1" (click)="clearItems()">
+    Clear Items
   </button>
-
-  <!-- Content rendering based on the selected view mode -->
-  <div [ngSwitch]="viewMode" class="tab-content">
-    <!-- Content rendering based on the selected view mode -->
-    <div *ngSwitchCase="'home'">Home Content</div>
-
-    <!-- Displayed when viewMode is 'breakfast' -->
-    <div *ngSwitchCase="'breakfast'">BreakFast Menu Content</div>
-
-    <!-- Displayed when viewMode doesn't match any case -->
-    <div *ngSwitchDefault>something went wrong</div>
-  </div>
-</ng-container>
-
-<div class="container">
-  <span>Like/dislike </span>
-  <button
-    type="button"
-    class="btn btn-dark"
-    (click)="toggleLike()"
-    [ngStyle]="{ 'background-color': isLike ? 'white' : 'black' }"
-  >
-    <i class="bi bi-heart text-danger"></i>
-  </button>
-</div>
-
-<div class="container">
-  <h2 class="mx-3">Counter: {{ count }}</h2>
-  <button (click)="increment()" class="btn btn-success mx-3">Increment</button>
-  <button
-    (click)="decrement()"
-    class="btn"
-    [disabled]="count == 0"
-    [ngClass]="{ 'btn-secondary': count == 0, 'btn-danger': count > 0 }"
-  >
-    Decrement
-  </button>
+  <ul>
+    <li *ngFor="let item of items">{{ item }}</li>
+  </ul>
 </div>

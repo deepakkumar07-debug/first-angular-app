@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
@@ -6,37 +7,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor() {
-    console.log('App Component Constructor Called.');
+  // dependency injection at constructor
+  constructor(private dataService: DataService) {}
+  newItem: string = '';
+  items: string[] = [];
+
+  addItem() {
+    if (this.newItem) {
+      this.dataService.addData(this.newItem);
+      this.newItem = '';
+      this.updateItems();
+    }
   }
 
-  products: any = [
-    { name: 'Laptop', price: 999 },
-    { name: 'Smartphone', price: 499 },
-    { name: 'Tablet', price: 299 },
-  ];
-
-  isHide: boolean = true;
-  isLike: boolean = false;
-
-  toggleParagraph() {
-    this.isHide = !this.isHide;
+  updateItems() {
+    this.items = this.dataService.getData();
   }
 
-  toggleLike() {
-    this.isLike = !this.isLike;
-  }
-  courses = ['C', 'C++'];
-  // courses=[];
-  viewMode = 'home';
-
-  count: number = 0;
-
-  increment() {
-    this.count++;
-  }
-
-  decrement() {
-    this.count--;
+  clearItems() {
+    this.dataService.clearData();
+    this.updateItems();
   }
 }
