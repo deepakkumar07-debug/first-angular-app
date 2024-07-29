@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from './data.service';
+import { ActivitiesService } from './activities.service';
 
 @Component({
   selector: 'app-root',
@@ -8,24 +9,38 @@ import { DataService } from './data.service';
 })
 export class AppComponent {
   // dependency injection at constructor
-  constructor(private dataService: DataService) {}
-  newItem: string = '';
-  items: string[] = [];
+  constructor(private activityService: ActivitiesService) {}
+  data: any[] = [];
 
-  addItem() {
-    if (this.newItem) {
-      this.dataService.addData(this.newItem);
-      this.newItem = '';
-      this.updateItems();
-    }
+  ngOnInit() {
+    this.activityService.getData().subscribe((response) => {
+      this.data = response;
+    });
   }
 
-  updateItems() {
-    this.items = this.dataService.getData();
+  newActivity = {
+    id: this.data.length + 1,
+    title: '',
+    dueDate: '',
+    completed: false,
+  };
+  addActivity() {
+    // Convert completed to boolean
+    this.newActivity.completed =
+      (this.newActivity.completed as unknown) === 'true';
+
+    this.activityService.addData(this.newActivity).subscribe((response) => {
+      this.data.unshift(response);
+      this.resetForm();
+    });
   }
 
-  clearItems() {
-    this.dataService.clearData();
-    this.updateItems();
+  resetForm() {
+    this.newActivity = {
+      id: 0,
+      title: '',
+      dueDate: '',
+      completed: false,
+    };
   }
 }
