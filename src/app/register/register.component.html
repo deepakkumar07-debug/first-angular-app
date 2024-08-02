@@ -1,0 +1,138 @@
+<!-- src/app/register/register.component.html -->
+<div class="container">
+  <h2>Register</h2>
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="saveRegisterForm(registerForm)"
+    novalidate
+  >
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Enter name"
+        name="name"
+        ngModel
+        #name="ngModel"
+        required
+      />
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="text-danger"
+      >
+        <small *ngIf="name.errors?.['required']">Name is required.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="Enter email"
+        name="emailId"
+        ngModel
+        #emailId="ngModel"
+        required
+        email
+      />
+      <div
+        *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)"
+        class="text-danger"
+      >
+        <small *ngIf="emailId.errors?.['required']">Email is required.</small>
+        <small *ngIf="emailId.errors?.['email']">Invalid email address.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Gender:</label>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_male"
+          class="form-check-input"
+          value="male"
+          name="gender"
+          ngModel
+          #gender="ngModel"
+          required
+        />
+        <label class="form-check-label" for="_male">Male</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_female"
+          class="form-check-input"
+          value="female"
+          name="gender"
+          ngModel
+          required
+        />
+        <label class="form-check-label" for="_female">Female</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_others"
+          class="form-check-input"
+          value="others"
+          name="gender"
+          ngModel
+          required
+        />
+        <label class="form-check-label" for="_others">Others</label>
+      </div>
+      <div
+        *ngIf="gender.invalid && (gender.dirty || gender.touched)"
+        class="text-danger"
+      >
+        <small *ngIf="gender.errors?.['required']">Gender is required.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+        ngModel
+        name="password"
+        #password="ngModel"
+        required
+        minlength="6"
+      />
+      <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="text-danger"
+      >
+        <small *ngIf="password.errors?.['required']"
+          >Password is required.</small
+        >
+        <small *ngIf="password.errors?.['minlength']"
+          >Password must be at least 6 characters long.</small
+        >
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="registerForm.invalid"
+    >
+      Register
+    </button>
+  </form>
+
+  <br />
+  <pre>Value : {{ registerForm.value | json }} </pre>
+  <pre>Valid : {{ registerForm.valid }} </pre>
+  <pre>Touched : {{ registerForm.touched }} </pre>
+  <pre>Submitted : {{ registerForm.submitted }} </pre>
+</div>
