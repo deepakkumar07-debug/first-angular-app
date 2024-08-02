@@ -1,11 +1,8 @@
-<!-- src/app/register/register.component.html -->
+<!-- register.component.html -->
 <div class="container">
   <h2>Register</h2>
-  <form
-    #registerForm="ngForm"
-    (ngSubmit)="saveRegisterForm(registerForm)"
-    novalidate
-  >
+  <form [formGroup]="registerForm" (ngSubmit)="saveRegisterForm()">
+    <!-- Name Field -->
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input
@@ -13,88 +10,49 @@
         class="form-control"
         id="name"
         placeholder="Enter name"
-        name="name"
-        ngModel
-        #name="ngModel"
-        required
+        formControlName="name"
       />
       <div
-        *ngIf="name.invalid && (name.dirty || name.touched)"
+        *ngIf="
+          registerForm.get('name')?.invalid &&
+          (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)
+        "
         class="text-danger"
       >
-        <small *ngIf="name.errors?.['required']">Name is required.</small>
+        <small *ngIf="registerForm.get('name')?.errors?.['required']"
+          >Name is required.</small
+        >
       </div>
     </div>
 
+    <!-- Email Field -->
     <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
+      <label for="emailId" class="form-label">Email address</label>
       <input
         type="email"
         class="form-control"
-        id="email"
+        id="emailId"
         placeholder="Enter email"
-        name="emailId"
-        ngModel
-        #emailId="ngModel"
-        required
-        email
+        formControlName="emailId"
       />
       <div
-        *ngIf="emailId.invalid && (emailId.dirty || emailId.touched)"
+        *ngIf="
+          registerForm.get('emailId')?.invalid &&
+          (registerForm.get('emailId')?.dirty ||
+            registerForm.get('emailId')?.touched)
+        "
         class="text-danger"
       >
-        <small *ngIf="emailId.errors?.['required']">Email is required.</small>
-        <small *ngIf="emailId.errors?.['email']">Invalid email address.</small>
+        <small *ngIf="registerForm.get('emailId')?.errors?.['required']"
+          >Email is required.</small
+        >
+        <small *ngIf="registerForm.get('emailId')?.errors?.['email']"
+          >Email must be a valid email address.</small
+        >
       </div>
     </div>
 
-    <div class="mb-3">
-      <label class="form-label">Gender:</label>
-      <div class="form-check">
-        <input
-          type="radio"
-          id="_male"
-          class="form-check-input"
-          value="male"
-          name="gender"
-          ngModel
-          #gender="ngModel"
-          required
-        />
-        <label class="form-check-label" for="_male">Male</label>
-      </div>
-      <div class="form-check">
-        <input
-          type="radio"
-          id="_female"
-          class="form-check-input"
-          value="female"
-          name="gender"
-          ngModel
-          required
-        />
-        <label class="form-check-label" for="_female">Female</label>
-      </div>
-      <div class="form-check">
-        <input
-          type="radio"
-          id="_others"
-          class="form-check-input"
-          value="others"
-          name="gender"
-          ngModel
-          required
-        />
-        <label class="form-check-label" for="_others">Others</label>
-      </div>
-      <div
-        *ngIf="gender.invalid && (gender.dirty || gender.touched)"
-        class="text-danger"
-      >
-        <small *ngIf="gender.errors?.['required']">Gender is required.</small>
-      </div>
-    </div>
-
+    <!-- Password Field -->
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
       <input
@@ -102,21 +60,140 @@
         class="form-control"
         id="password"
         placeholder="Password"
-        ngModel
-        name="password"
-        #password="ngModel"
-        required
-        minlength="6"
+        formControlName="password"
       />
       <div
-        *ngIf="password.invalid && (password.dirty || password.touched)"
+        *ngIf="
+          registerForm.get('password')?.invalid &&
+          (registerForm.get('password')?.dirty ||
+            registerForm.get('password')?.touched)
+        "
         class="text-danger"
       >
-        <small *ngIf="password.errors?.['required']"
+        <small *ngIf="registerForm.get('password')?.errors?.['required']"
           >Password is required.</small
         >
-        <small *ngIf="password.errors?.['minlength']"
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']"
           >Password must be at least 6 characters long.</small
+        >
+      </div>
+    </div>
+
+    <!-- Gender Field -->
+    <div class="mb-3">
+      <label class="form-label">Gender</label>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_male"
+          class="form-check-input"
+          value="male"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="_male"> Male </label>
+      </div>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_female"
+          class="form-check-input"
+          value="female"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="_female"> Female </label>
+      </div>
+      <div class="form-check">
+        <input
+          type="radio"
+          id="_others"
+          class="form-check-input"
+          value="others"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="_others"> Others </label>
+      </div>
+      <div
+        *ngIf="
+          registerForm.get('gender')?.invalid &&
+          (registerForm.get('gender')?.dirty ||
+            registerForm.get('gender')?.touched)
+        "
+        class="text-danger"
+      >
+        <small *ngIf="registerForm.get('gender')?.errors?.['required']"
+          >Gender is required.</small
+        >
+      </div>
+    </div>
+
+    <!-- Hobbies Field -->
+    <div class="mb-3" formGroupName="hobbies">
+      <label class="form-label">Hobbies</label>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="reading"
+          class="form-check-input"
+          formControlName="reading"
+        />
+        <label class="form-check-label" for="reading"> Reading </label>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="traveling"
+          class="form-check-input"
+          formControlName="traveling"
+        />
+        <label class="form-check-label" for="traveling"> Traveling </label>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="cooking"
+          class="form-check-input"
+          formControlName="cooking"
+        />
+        <label class="form-check-label" for="cooking"> Cooking </label>
+      </div>
+    </div>
+
+    <!-- Country Field -->
+    <div class="mb-3">
+      <label for="country" class="form-label">Country</label>
+      <select class="form-select" id="country" formControlName="country">
+        <option value="">Select Country</option>
+        <option value="USA">USA</option>
+        <option value="Canada">Canada</option>
+        <option value="India">India</option>
+      </select>
+      <div
+        *ngIf="
+          registerForm.get('country')?.invalid &&
+          (registerForm.get('country')?.dirty ||
+            registerForm.get('country')?.touched)
+        "
+        class="text-danger"
+      >
+        <small *ngIf="registerForm.get('country')?.errors?.['required']"
+          >Country is required.</small
+        >
+      </div>
+    </div>
+
+    <!-- Date of Birth Field -->
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of Birth</label>
+      <input type="date" class="form-control" id="dob" formControlName="dob" />
+      <div
+        *ngIf="
+          registerForm.get('dob')?.invalid &&
+          (registerForm.get('dob')?.dirty || registerForm.get('dob')?.touched)
+        "
+        class="text-danger"
+      >
+        <small *ngIf="registerForm.get('dob')?.errors?.['required']"
+          >Date of Birth is required.</small
         >
       </div>
     </div>
@@ -129,10 +206,4 @@
       Register
     </button>
   </form>
-
-  <br />
-  <pre>Value : {{ registerForm.value | json }} </pre>
-  <pre>Valid : {{ registerForm.valid }} </pre>
-  <pre>Touched : {{ registerForm.touched }} </pre>
-  <pre>Submitted : {{ registerForm.submitted }} </pre>
 </div>
